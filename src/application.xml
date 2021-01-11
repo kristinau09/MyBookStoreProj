@@ -1,6 +1,16 @@
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"  
-            "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
 <beans>
-
+	<bean id="bookService" class="com.example.bookstore.services.BookServiceMockImpl"></bean>
+	<bean id="accountsService" class="com.example.bookstore.services.AccountsServiceMockImpl"></bean>
+	<!-- injecting two objects in PurchasingServiceImpl class-->
+	<bean id="purchasingService" class="com.example.bookstore.services.PurchasingServiceImpl">
+	<!-- ref is referring the object that has been created else where in spring container-->
+		<!--<property name="bookService" ref="bookService"></property>
+		<property name="accountsService" ref="accountsService"></property>-->
+		<constructor-arg ref="bookService"></constructor-arg>
+		<constructor-arg ref="accountsService"></constructor-arg>
+	
+	
+	</bean>
 </beans>
-
