@@ -32,6 +32,5 @@
 		<constructor-arg ref="bookService"></constructor-arg>
 		<constructor-arg ref="accountsService"></constructor-arg>
 	</bean>
-	<bean></bean>
-
+	
 </beans>
