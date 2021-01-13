@@ -9,29 +9,29 @@
 		<property name="password" value=""></property>
 	</bean>
 
-    <!--Template-->
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-    	<constructor-arg ref="dataSource"></constructor-arg>
-    </bean>
+	<!--Template-->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource"></constructor-arg>
+	</bean>
 
 	<!--Dao Beans-->
 	<bean id="bookDao" class="com.example.bookstore.dataDao.BookDaoJdbcImpl">
 		<constructor-arg ref="jdbcTemplate"></constructor-arg>
-		
 	</bean>
-	
-    <!-- Service beans -->
+
+	<!-- Service beans -->
 	<bean id="bookService" class="com.example.bookstore.services.BookServiceProductionImpl">
 		<constructor-arg ref="bookDao"></constructor-arg>
-	</bean>	
-	
+	</bean>
+
 	<bean id="accountsService" class="com.example.bookstore.services.AccountsServiceMockImpl"></bean>
-	
+
 	<!-- injecting two objects in PurchasingServiceImpl class-->
 	<bean id="purchasingService" class="com.example.bookstore.services.PurchasingServiceImpl">
-	<!-- ref is referring the object that has been created else where in spring container-->
+		<!-- ref is referring the object that has been created else where in spring container-->
 		<constructor-arg ref="bookService"></constructor-arg>
-		<constructor-arg ref="accountsService"></constructor-arg>	
+		<constructor-arg ref="accountsService"></constructor-arg>
 	</bean>
-	
+	<bean></bean>
+
 </beans>
