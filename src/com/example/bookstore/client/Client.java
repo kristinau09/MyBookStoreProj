@@ -20,7 +20,7 @@ public class Client {
 			System.out.println(nextBook);
 		}
 		
-		
 		container.close();
+		
 	}
 }

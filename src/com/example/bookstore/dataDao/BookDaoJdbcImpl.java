@@ -17,15 +17,21 @@ public class BookDaoJdbcImpl implements BookDao {
 	private static final String CREATE_TABLE_SQL = "create table BOOK(ISBN VARCHAR(20), TITLE VARCHAR(50), AUTHOR VARCHAR(50), PRICE DOUBLE)";
 	private static final String GET_ALL_BOOKS_SQL = "select * from BOOK";
 
-	//injecting dependency
+	// injecting dependency
 
 	public BookDaoJdbcImpl(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate=jdbcTemplate; 
-		
-		try { jdbcTemplate.update(CREATE_TABLE_SQL);
-		}catch(Exception e) {
-			System.out.println("Assuming that the table already exists:::"); } }
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	//creating table
+	public void createTables() {
 
+		try {
+			jdbcTemplate.update(CREATE_TABLE_SQL);
+		} catch (Exception e) {
+			System.out.println("Assuming that the table already exists:::");
+		}
+	}
 
 	@Override
 	public List<Book> allBooks() {
@@ -40,8 +46,8 @@ public class BookDaoJdbcImpl implements BookDao {
 
 	@Override
 	public void create(Book newBook) {
-		jdbcTemplate.update(INSERT_BOOK_SQL, 
-				newBook.getIsbn(), newBook.getTitle(),newBook.getAuthor(), newBook.getPrice());
+		jdbcTemplate.update(INSERT_BOOK_SQL, newBook.getIsbn(), newBook.getTitle(), newBook.getAuthor(),
+				newBook.getPrice());
 
 	}
 
@@ -57,8 +63,9 @@ public class BookDaoJdbcImpl implements BookDao {
 	}
 
 }
-class BookMapper implements RowMapper<Book>{
-	//ResultSet is what we get back from SQL query
+
+class BookMapper implements RowMapper<Book> {
+	// ResultSet is what we get back from SQL query
 	@Override
 	public Book mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		String isbn = rs.getString("ISBN");
@@ -66,7 +73,7 @@ class BookMapper implements RowMapper<Book>{
 		String author = rs.getString("AUTHOR");
 		double price = rs.getDouble("PRICE");
 
-		//create a book
+		// create a book
 		Book book = new Book(isbn, title, author, price);
 
 		return book;
