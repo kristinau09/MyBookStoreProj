@@ -2,6 +2,8 @@
 
 <beans>
 	<!-- DataSource-->
+	<!--destroy-method="close", spring will automatically close any open connections when the application is completely finished.
+	    This is necessary because HSQLDB is a file based database and that's the only way that HSQLDB can close the files properly. -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver"></property>
 		<property name="url" value="jdbc:hsqldb:file:database.dat;shutdown=true"></property>
@@ -10,6 +12,8 @@
 	</bean>
 
 	<!--Template-->
+	<!-- init-method to initialize createTables() and telling Spring it needs to call that method once it is 
+	created this book DAO object i.e., at the start of the program's run-->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<constructor-arg ref="dataSource"></constructor-arg>
 	</bean>

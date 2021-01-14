@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.example.bookstore.dataDao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.services.BookService;
 import com.example.bookstore.services.PurchasingService;
 
 public class Client {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		
 		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
 		
@@ -18,6 +19,11 @@ public class Client {
 		List<Book> allBooks = bookService.getEntireCatalogue();
 		for(Book nextBook: allBooks) {
 			System.out.println(nextBook);
+		}
+		try {
+			Book foundBook = bookService.getBookByIsbn("jkjlksjasjlkjdlsa");
+		}catch(BookNotFoundException b) {
+			System.out.println("Book doesn't exist");
 		}
 		
 		container.close();

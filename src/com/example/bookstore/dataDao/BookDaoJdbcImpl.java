@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -25,10 +27,14 @@ public class BookDaoJdbcImpl implements BookDao {
 	
 	//creating table
 	public void createTables() {
+		/**
+		 * BadSqlGrammarException is only going to work if the table is already existing
+		 */
 
 		try {
 			jdbcTemplate.update(CREATE_TABLE_SQL);
-		} catch (Exception e) {
+			
+		} catch (BadSqlGrammarException e) {
 			System.out.println("Assuming that the table already exists:::");
 		}
 	}
@@ -39,9 +45,15 @@ public class BookDaoJdbcImpl implements BookDao {
 	}
 
 	@Override
-	public Book findByIsbn(String isbn) {
-
-		return jdbcTemplate.queryForObject("SELECT * from book where isbn=?", new BookMapper(), isbn);
+	public Book findByIsbn(String isbn) throws BookNotFoundException {
+        //when query for object, you are expecting one and only one result to be returned
+		try {
+			return jdbcTemplate.queryForObject("SELECT * from book where isbn=?", new BookMapper(), isbn);
+			
+		}catch (EmptyResultDataAccessException e) {
+			throw new BookNotFoundException();
+		}
+		
 	}
 
 	@Override

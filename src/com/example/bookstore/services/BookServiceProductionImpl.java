@@ -4,6 +4,7 @@ package com.example.bookstore.services;
 import java.util.List;
 
 import com.example.bookstore.dataDao.BookDao;
+import com.example.bookstore.dataDao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 
 public class BookServiceProductionImpl implements BookService {
@@ -26,7 +27,7 @@ public class BookServiceProductionImpl implements BookService {
 	}
 
 	@Override
-	public Book getBookByIsbn(String isbn) {
+	public Book getBookByIsbn(String isbn) throws BookNotFoundException {
 		return bookDao.findByIsbn(isbn);
 	}
 

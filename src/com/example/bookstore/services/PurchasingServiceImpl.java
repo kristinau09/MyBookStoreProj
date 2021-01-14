@@ -1,5 +1,6 @@
 package com.example.bookstore.services;
 
+import com.example.bookstore.dataDao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 
 public class PurchasingServiceImpl implements PurchasingService {
@@ -30,7 +31,7 @@ public class PurchasingServiceImpl implements PurchasingService {
 	 * }
 	 */
 	@Override
-	public void buyBook(String isbn) {
+	public void buyBook(String isbn) throws BookNotFoundException{
 		//find the correct book
 		Book requireBook = books.getBookByIsbn(isbn);
 		//raise the invoice
