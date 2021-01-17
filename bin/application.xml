@@ -24,7 +24,7 @@
 	</bean>
 
 	<!-- Service beans -->
-	<bean id="bookService" class="com.example.bookstore.services.BookServiceProductionImpl">
+	<bean id="bookServiceTarget" class="com.example.bookstore.services.BookServiceProductionImpl">
 		<constructor-arg ref="bookDao"></constructor-arg>
 	</bean>
 
@@ -36,6 +36,12 @@
 		<constructor-arg ref="bookService"></constructor-arg>
 		<constructor-arg ref="accountsService"></constructor-arg>
 				
+	</bean>
+	
+	<!-- Timing Bean-->
+	<bean id="bookService" class="com.example.bookstore.services.BookServiceTimingProxy">
+		<property name="originalBookService" ref="bookServiceTarget"></property>
+	
 	</bean>
 	
 </beans>

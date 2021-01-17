@@ -14,16 +14,16 @@ public class Client {
 		
 		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
 		
-		BookService bookService = container.getBean(BookService.class);
+		BookService bookService = container.getBean("bookService",BookService.class);
 		bookService.registerNewBook(new Book("233432432","Sherlock Holmes", "Sir Author Conan Doyle", 120.42));
 		List<Book> allBooks = bookService.getEntireCatalogue();
 		for(Book nextBook: allBooks) {
 			System.out.println(nextBook);
 		}
 		try {
-			Book foundBook = bookService.getBookByIsbn("jkjlksjasjlkjdlsa");
+			Book foundBook = bookService.getBookByIsbn("1234");
 		}catch(BookNotFoundException b) {
-			System.out.println("Book doesn't exist");
+			System.out.println("Sorry, that Book doesn't exist");
 		}
 		
 		container.close();
