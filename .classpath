@@ -35,7 +35,7 @@
 	<classpathentry kind="lib" path="lib/log4j-jdbc-dbcp2-2.13.3.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-jpa-2.13.3.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-jul-2.13.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-aop-5.2.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-aop-5.2.7.RELEASE.jar" sourcepath="lib/spring-aop-5.2.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-aspects-5.2.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-beans-5.2.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-context-5.2.7.RELEASE.jar"/>

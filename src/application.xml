@@ -38,7 +38,7 @@
 	</bean>
 	
 	<!-- Advice bean-->
-	<bean id="loggingAdvice" class="com.exmaple.bookStore.advice.SimpleLoggingAdvice"></bean>
+	<bean id="loggingAdvice" class="com.exmaple.bookStore.advice.PerformanceTimingAdvice"></bean>
 	
 	<!-- Generated Proxies-->
 	<bean id="bookService" class="org.springframework.aop.framework.ProxyFactoryBean">
