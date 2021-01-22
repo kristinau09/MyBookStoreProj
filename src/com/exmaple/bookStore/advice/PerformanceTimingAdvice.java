@@ -1,19 +1,15 @@
 package com.exmaple.bookStore.advice;
 
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
-public class PerformanceTimingAdvice implements MethodInterceptor {	
-
-
-
-	@Override
-	public Object invoke(MethodInvocation method) throws Throwable {
+public class PerformanceTimingAdvice {	
+	
+	public Object performTimimgMeasurement(ProceedingJoinPoint method) throws Throwable {
 
 		//before
-		long startTime = System.nanoTime();
+		long startTime = System.currentTimeMillis();
 
 		try {	
 
@@ -22,14 +18,18 @@ public class PerformanceTimingAdvice implements MethodInterceptor {
 			return returnValue;
 		} finally {
 			//after
-			long endTime = System.nanoTime();
+			long endTime = System.currentTimeMillis();
 
 			long timeTaken = endTime - startTime;
 
 			//getMethod() return as Java Reflection method instance which has the getName method inside it
-			System.out.println("The method " + method.getMethod().getName() + " took " + timeTaken + " nanoseconds");
+			System.out.println("The method " + method.getSignature().getName() + " took " + timeTaken + " milliseconds");
 		}
 
+	}
+	
+	public void beforeAdviceTesting(JoinPoint jp) {
+		System.out.println("Now entering a method......" + jp.getSignature().getName());
 	}
 
 }

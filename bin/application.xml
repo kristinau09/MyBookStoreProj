@@ -1,6 +1,11 @@
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<beans>
+	<!-- bean definitions here -->
+
+
 	<!-- DataSource-->
 	<!--destroy-method="close", spring will automatically close any open connections when the application is completely finished.
 	    This is necessary because HSQLDB is a file based database and that's the only way that HSQLDB can close the files properly. -->
@@ -24,7 +29,7 @@
 	</bean>
 
 	<!-- Service beans -->
-	<bean id="bookServiceTarget" class="com.example.bookstore.services.BookServiceProductionImpl">
+	<bean id="bookService" class="com.example.bookstore.services.BookServiceProductionImpl">
 		<constructor-arg ref="bookDao"></constructor-arg>
 	</bean>
 
@@ -33,24 +38,21 @@
 	<!-- injecting two objects in PurchasingServiceImpl class-->
 	<bean id="purchasingService" class="com.example.bookstore.services.PurchasingServiceImpl">
 		<!-- ref is referring the object that has been created else where in spring container-->
-		<constructor-arg ref="bookServiceTarget"></constructor-arg>
-		<constructor-arg ref="accountsService"></constructor-arg>				
+		<constructor-arg ref="bookService"></constructor-arg>
+		<constructor-arg ref="accountsService"></constructor-arg>
 	</bean>
-	
-	<!-- Advice bean-->
-	<bean id="loggingAdvice" class="com.exmaple.bookStore.advice.PerformanceTimingAdvice"></bean>
-	
-	<!-- Generated Proxies-->
-	<bean id="bookService" class="org.springframework.aop.framework.ProxyFactoryBean">
-		<property name="proxyInterfaces" value="com.example.bookstore.services.BookService"></property>
-		<property name="interceptorNames">
-			<list>
-				<value>loggingAdvice</value>
-			</list>
-		</property>
-		<property name="target" ref="bookServiceTarget"></property>
-	</bean>
-	
-	
-	
+
+	<!-- AOP Advice bean applied to Service classes-->
+	<bean id="performingTimingAdvice" class="com.exmaple.bookStore.advice.PerformanceTimingAdvice"></bean>
+
+	<!--Now weave the advice into the classes defined by the pointcut-->
+	<aop:config>
+		<aop:pointcut id="allServiceMethodThatReturnList" expression="execution ( java.util.List com.example.bookstore.services.*.*(..) )" />
+		<aop:aspect ref="performingTimingAdvice">
+			<aop:around method="performTimimgMeasurement" pointcut-ref="allServiceMethodThatReturnList" />
+			<aop:before method="beforeAdviceTesting" pointcut-ref="allServiceMethodThatReturnList" />
+		</aop:aspect>
+	</aop:config>
+
+
 </beans>
