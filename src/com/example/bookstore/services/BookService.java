@@ -2,8 +2,11 @@ package com.example.bookstore.services;
 
 import java.util.List;
 
-import com.example.bookstore.dataDao.BookNotFoundException;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import com.example.bookstore.dao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
+
 
 public interface BookService 
 {

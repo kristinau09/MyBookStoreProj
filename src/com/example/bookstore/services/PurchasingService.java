@@ -1,6 +1,6 @@
 package com.example.bookstore.services;
 
-import com.example.bookstore.dataDao.BookNotFoundException;
+import com.example.bookstore.dao.BookNotFoundException;
 
 public interface PurchasingService {
 	

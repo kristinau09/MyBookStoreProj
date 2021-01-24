@@ -55,5 +55,7 @@
 	<classpathentry kind="lib" path="lib/spring-web-5.2.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-webmvc-5.2.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-websocket-5.2.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis-3.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis-spring-2.0.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

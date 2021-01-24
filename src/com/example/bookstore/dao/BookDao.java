@@ -1,4 +1,4 @@
-package com.example.bookstore.dataDao;
+package com.example.bookstore.dao;
 
 import java.util.List;
 

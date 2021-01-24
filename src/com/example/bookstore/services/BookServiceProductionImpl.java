@@ -3,10 +3,14 @@ package com.example.bookstore.services;
 
 import java.util.List;
 
-import com.example.bookstore.dataDao.BookDao;
-import com.example.bookstore.dataDao.BookNotFoundException;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.bookstore.dao.BookDao;
+import com.example.bookstore.dao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 
+@Transactional
 public class BookServiceProductionImpl implements BookService {
 	
 	private BookDao bookDao;
@@ -36,9 +40,11 @@ public class BookServiceProductionImpl implements BookService {
 		return bookDao.allBooks();
 	}
 
+	/* this method will register new book to the database */
 	@Override
 	public void registerNewBook(Book newBook) {
 		bookDao.create(newBook);
+		
 
 	}
 

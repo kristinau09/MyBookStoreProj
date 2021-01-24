@@ -1,11 +1,21 @@
-package com.exmaple.bookStore.advice;
-
+package com.example.bookstore.advice;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.transaction.annotation.Transactional;
 
-public class PerformanceTimingAdvice {	
+@Transactional
+@Aspect
+public class PerformanceTimingAdvice {
 	
+	@Pointcut("execution ( * com.example.bookstore.services.*.*(..) )")
+	public void allServiceMethod() {}
+	
+	@Around("allServiceMethod()")
 	public Object performTimimgMeasurement(ProceedingJoinPoint method) throws Throwable {
 
 		//before
@@ -27,7 +37,7 @@ public class PerformanceTimingAdvice {
 		}
 
 	}
-	
+	@Before("allServiceMethod()")
 	public void beforeAdviceTesting(JoinPoint jp) {
 		System.out.println("Now entering a method......" + jp.getSignature().getName());
 	}
