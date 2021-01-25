@@ -10,8 +10,8 @@ import com.example.bookstore.domain.Book;
 public class PurchasingServiceImpl implements PurchasingService {
 	
 	//injecting two objects
-	private AccountsService accounts;
-	private BookService books;
+	private AccountsService accountService;
+	private BookService bookService;
 	
 	/*
 	 * public PurchasingServiceImpl() {
@@ -20,8 +20,8 @@ public class PurchasingServiceImpl implements PurchasingService {
 	
 	//injecting dependencies through constructor
 	public PurchasingServiceImpl(AccountsService accountsService, BookService bookService) {
-		this.accounts=accountsService;
-		this.books=bookService;
+		this.accountService=accountsService;
+		this.bookService=bookService;
 		
 	}
 
@@ -30,10 +30,15 @@ public class PurchasingServiceImpl implements PurchasingService {
 	public void buyBook(String isbn) throws BookNotFoundException{
 		
 		//find the correct book
-		Book requireBook = books.getBookByIsbn(isbn);
+		Book requireBook = bookService.getBookByIsbn(isbn);
+		
+		/* we want to combine following two operations in single transaction */
+		
+		//delete the book from stock
+		bookService.deleteFromStock(requireBook);
 		
 		//raise the invoice (billed to the client)
-		accounts.raiseInvoice(requireBook);
+		accountService.raiseInvoice(requireBook);
 
 	}
 

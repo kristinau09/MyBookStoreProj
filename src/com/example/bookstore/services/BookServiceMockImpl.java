@@ -40,4 +40,10 @@ public class BookServiceMockImpl implements BookService {
 	public List<Book> getAllRecommendedBooks(String userId) {
 		return null;
 	}
+
+	@Override
+	public void deleteFromStock(Book oldBook) {
+		testBooks.remove(oldBook.getIsbn());
+		
+	}
 }

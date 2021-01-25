@@ -33,13 +33,13 @@ public class PerformanceTimingAdvice {
 			long timeTaken = endTime - startTime;
 
 			//getMethod() return as Java Reflection method instance which has the getName method inside it
-			System.out.println("The method " + method.getSignature().getName() + " took " + timeTaken + " milliseconds");
+			System.out.println("\nThe method " + method.getSignature().getName() + " took " + timeTaken + " milliseconds");
 		}
 
 	}
 	@Before("allServiceMethod()")
 	public void beforeAdviceTesting(JoinPoint jp) {
-		System.out.println("Now entering a method......" + jp.getSignature().getName());
+		System.out.println("\nNow entering a method......" + jp.getSignature().getName());
 	}
 
 }

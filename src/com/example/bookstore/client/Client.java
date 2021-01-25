@@ -14,21 +14,45 @@ public class Client {
 
 		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
 		try {
+			/*
+			 * BookService bookService = container.getBean("bookService",BookService.class);
+			 * 
+			 * bookService.registerNewBook(new Book("233432432","Sherlock Holmes",
+			 * "Sir Author Conan Doyle", 120.42));
+			 * 
+			 * List<Book> allBooks = bookService.getEntireCatalogue(); for(Book nextBook:
+			 * allBooks) { System.out.println(nextBook); }
+			 * 
+			 * try { Book foundBook = bookService.getBookByIsbn("1234");
+			 * }catch(BookNotFoundException b) {
+			 * System.out.println("Sorry, that Book doesn't exist"); }
+			 */
+			
+			PurchasingService purchasingService = container.getBean(PurchasingService.class);
 			BookService bookService = container.getBean("bookService",BookService.class);
-
-			bookService.registerNewBook(new Book("233432432","Sherlock Holmes", "Sir Author Conan Doyle", 120.42));
-
-			List<Book> allBooks = bookService.getEntireCatalogue();
-			for(Book nextBook: allBooks) {
-				System.out.println(nextBook);
-			}
-
+			
+			/*
+			 * since we are calling Book Service method directly from client, bookService
+			 * will get its own transaction
+			 */
+			//begin transaction
+			bookService.registerNewBook(new Book("100000999999","Data Structure and Algorithm",
+					  "Michael T. Goodrich and Roberto Tamassia", 98.42));
+			//commit transaction
+			
+			//begin
 			try {
-				Book foundBook = bookService.getBookByIsbn("1234");
-			}catch(BookNotFoundException b) {
-				System.out.println("Sorry, that Book doesn't exist");
+				
+				purchasingService.buyBook("100000999999");
+				
+			}catch(BookNotFoundException e){
+				
+				System.out.println("\nSorry, that book doesn't exist");
 			}
+			//commit
+			
 		}finally {
+			
 			container.close();
 		}
 

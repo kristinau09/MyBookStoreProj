@@ -15,4 +15,5 @@ public interface BookService
 	   public Book getBookByIsbn(String isbn) throws BookNotFoundException;
 	   public List<Book> getEntireCatalogue();
 	   public void registerNewBook(Book newBook);
+	   public void deleteFromStock(Book oldBook);
 }

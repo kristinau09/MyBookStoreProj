@@ -6,7 +6,7 @@ public class AccountsServiceMockImpl implements AccountsService {
 
 	@Override
 	public void raiseInvoice(Book requireBook) {
-		System.out.println("Raised the invoice for " + requireBook + "\n");
+		System.out.println("\nRaised the invoice for " + requireBook + "\n");
 
 	}
 

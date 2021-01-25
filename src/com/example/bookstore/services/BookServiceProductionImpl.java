@@ -48,4 +48,10 @@ public class BookServiceProductionImpl implements BookService {
 
 	}
 
+	@Override
+	public void deleteFromStock(Book oldBook) {
+		bookDao.delete(oldBook);
+		
+	}
+
 }
