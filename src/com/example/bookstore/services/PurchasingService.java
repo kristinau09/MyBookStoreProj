@@ -6,6 +6,6 @@ public interface PurchasingService {
 	
 	public void setAccountsService(AccountsService accounts);
 	public void setBookService(BookService books);
-	public void buyBook(String isbn) throws BookNotFoundException;
+	public void buyBook(String isbn) throws BookNotFoundException, CustomerCreditExceededException;
 
 }

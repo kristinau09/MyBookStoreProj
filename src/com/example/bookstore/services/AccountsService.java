@@ -4,7 +4,7 @@ import com.example.bookstore.domain.Book;
 
 public interface AccountsService {
 
-	public void raiseInvoice(Book requireBook);
+	public void raiseInvoice(Book requireBook) throws CustomerCreditExceededException;
 	
 	
 	

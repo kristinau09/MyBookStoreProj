@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.example.bookstore.dao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.services.BookService;
+import com.example.bookstore.services.CustomerCreditExceededException;
 import com.example.bookstore.services.PurchasingService;
 
 public class Client {
@@ -48,6 +49,9 @@ public class Client {
 			}catch(BookNotFoundException e){
 				
 				System.out.println("\nSorry, that book doesn't exist");
+				
+			}catch(CustomerCreditExceededException e) {
+				System.out.println("Sorry, Not enough fund to buy this book. Try again!");
 			}
 			//commit
 			
