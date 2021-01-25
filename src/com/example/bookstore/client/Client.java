@@ -14,20 +14,8 @@ public class Client {
 	public static void main(String[] args) throws Exception{
 
 		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
-		try {
-			/*
-			 * BookService bookService = container.getBean("bookService",BookService.class);
-			 * 
-			 * bookService.registerNewBook(new Book("233432432","Sherlock Holmes",
-			 * "Sir Author Conan Doyle", 120.42));
-			 * 
-			 * List<Book> allBooks = bookService.getEntireCatalogue(); for(Book nextBook:
-			 * allBooks) { System.out.println(nextBook); }
-			 * 
-			 * try { Book foundBook = bookService.getBookByIsbn("1234");
-			 * }catch(BookNotFoundException b) {
-			 * System.out.println("Sorry, that Book doesn't exist"); }
-			 */
+		
+		try {			
 			
 			PurchasingService purchasingService = container.getBean(PurchasingService.class);
 			BookService bookService = container.getBean("bookService",BookService.class);
@@ -37,8 +25,7 @@ public class Client {
 			 * will get its own transaction
 			 */
 			//begin transaction
-			bookService.registerNewBook(new Book("100000999999","Data Structure and Algorithm",
-					  "Michael T. Goodrich and Roberto Tamassia", 98.42));
+			bookService.registerNewBook(new Book("100000999999","Data Structure and Algorithm", "Michael T. Goodrich and Roberto Tamassia", 98.42));
 			//commit transaction
 			
 			//begin
