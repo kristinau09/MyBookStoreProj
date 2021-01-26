@@ -2,14 +2,14 @@ package com.example.bookstore.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bookstore.dao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 
 @Transactional
-@Component("purchasingService")
+@Service("purchasingService")
 public class PurchasingServiceImpl implements PurchasingService {
 	
 	@Autowired//injecting two objects

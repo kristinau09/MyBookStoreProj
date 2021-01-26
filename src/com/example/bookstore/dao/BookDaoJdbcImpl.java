@@ -11,13 +11,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bookstore.domain.Book;
 
 @Transactional
-@Component("bookDao")
+@Repository("bookDao")
 public class BookDaoJdbcImpl implements BookDao {
 
 	@Autowired

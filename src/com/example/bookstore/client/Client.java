@@ -1,7 +1,5 @@
 package com.example.bookstore.client;
 
-import java.util.List;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.example.bookstore.dao.BookNotFoundException;

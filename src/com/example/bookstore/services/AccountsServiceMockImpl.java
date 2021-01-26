@@ -1,10 +1,10 @@
 package com.example.bookstore.services;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.bookstore.domain.Book;
 
-@Component("accountService")
+@Service("accountService")
 public class AccountsServiceMockImpl implements AccountsService {
 
 	@Override
