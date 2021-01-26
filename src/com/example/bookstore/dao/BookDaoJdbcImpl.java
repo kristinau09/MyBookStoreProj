@@ -4,28 +4,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bookstore.domain.Book;
 
+@Transactional
+@Component("bookDao")
 public class BookDaoJdbcImpl implements BookDao {
 
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	private static final String INSERT_BOOK_SQL = "insert into BOOK (ISBN, TITLE, AUTHOR,PRICE) values (?, ?, ?, ?) ";
 	private static final String CREATE_TABLE_SQL = "create table BOOK(ISBN VARCHAR(20), TITLE VARCHAR(50), AUTHOR VARCHAR(50), PRICE DOUBLE)";
 	private static final String GET_ALL_BOOKS_SQL = "select * from BOOK";
 
-	// injecting dependency
-
-	public BookDaoJdbcImpl(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-	
-	//creating table
+	/*
+	 * this method needs to be executed after the dependency injection is done and
+	 * must be invoked before the class is put into service.
+	 */
+	@PostConstruct
 	public void createTables() {
 		/**
 		 * BadSqlGrammarException is only going to work if the table is already existing

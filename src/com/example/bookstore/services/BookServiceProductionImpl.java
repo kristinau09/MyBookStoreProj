@@ -3,7 +3,8 @@ package com.example.bookstore.services;
 
 import java.util.List;
 
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bookstore.dao.BookDao;
@@ -11,15 +12,12 @@ import com.example.bookstore.dao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 
 @Transactional
+@Component("bookService")
 public class BookServiceProductionImpl implements BookService {
 	
-	private BookDao bookDao;
+	@Autowired
+	private BookDao bookDao;	
 	
-	//injecting dependency
-	public BookServiceProductionImpl(BookDao bookDao) {
-		this.bookDao=bookDao;
-	}
-
 	@Override
 	public List<Book> getAllBooksByAuthor(String author) {
 		return bookDao.findBooksByAuthor(author);

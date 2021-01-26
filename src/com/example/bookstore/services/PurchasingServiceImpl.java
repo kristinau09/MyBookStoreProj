@@ -1,28 +1,24 @@
 package com.example.bookstore.services;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.example.bookstore.dao.BookNotFoundException;
 import com.example.bookstore.domain.Book;
 
 @Transactional
+@Component("purchasingService")
 public class PurchasingServiceImpl implements PurchasingService {
 	
-	//injecting two objects
+	@Autowired//injecting two objects
 	private AccountsService accountService;
+	@Autowired
 	private BookService bookService;
 		
-	//injecting dependencies through constructor
-	public PurchasingServiceImpl(AccountsService accountsService, BookService bookService) {
-		this.accountService=accountsService;
-		this.bookService=bookService;
-		
-	}
-
 	
-	@Transactional(rollbackFor = {CustomerCreditExceededException.class, BookNotFoundException.class}, timeout=10)
+	@Transactional(rollbackFor = {CustomerCreditExceededException.class, BookNotFoundException.class})
 	public void buyBook(String isbn) throws BookNotFoundException, CustomerCreditExceededException {
 		
 		//find the correct book
