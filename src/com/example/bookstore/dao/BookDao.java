@@ -2,8 +2,11 @@ package com.example.bookstore.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.example.bookstore.domain.Book;
 
+@Repository
 public interface BookDao {
 	
 	public List<Book> allBooks();
