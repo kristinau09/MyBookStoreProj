@@ -17,7 +17,7 @@
 	<!-- bean definitions here -->
 	
     <!-- Transaction Manager for the Project-->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager" autowire="byType"></bean>    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" autowire="byType"></bean>    
 
 	<!-- DataSource-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -26,8 +26,20 @@
 		<property name="username" value="sa"></property>
 		<property name="password" value=""></property>
 	</bean>	
+	
+	<!--EntityManagerFactory Config-->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true"></property>
+				<property name="generateDdl" value="true"></property>	
+			</bean>
+        </property>
+        <property name="dataSource" ref="dataSource"></property>
+	</bean>
 
 	<!--Hibernate Template-->	
+	<!--
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate" autowire="byType"></bean>
 	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -40,11 +52,12 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop> <!--Hibernate mapping to data definition lang, meaning creating tables-->
+				<prop key="hibernate.hbm2ddl.auto">update</prop> 
 			
 			</props>
 	    </property>	
 	</bean>
+	-->
 	
 	<!--JDBC Template-->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" autowire="constructor"></bean>	

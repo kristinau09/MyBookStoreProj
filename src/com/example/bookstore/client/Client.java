@@ -22,7 +22,7 @@ public class Client {
 			PurchasingService purchasingService = container.getBean(PurchasingService.class);
 			BookService bookService = container.getBean("bookService",BookService.class);
 						
-			bookService.registerNewBook(new Book("1234567890","Java Programming", "Josh Bloch", 98.42));			
+			//bookService.registerNewBook(new Book("1234567890","Java Programming", "Gary Cornell", 98.42));			
 			
 			List<Book> allBooks = bookService.getAllBooksByAuthor("Gary Cornell");
 			for(Book book: allBooks) {
