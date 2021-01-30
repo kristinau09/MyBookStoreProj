@@ -15,14 +15,22 @@ public class Client {
 	
 	public static void main(String[] args) throws Exception{
 
-		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
+		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application-myBatis.xml");
 		
 		try {			
 			
-			//PurchasingService purchasingService = container.getBean(PurchasingService.class);
+			PurchasingService purchasingService = container.getBean(PurchasingService.class);
 			BookService bookService = container.getBean("bookService",BookService.class);
 						
-			bookService.registerNewBook(new Book("1234567890","Java Programming", "Gary Cornell", 98.42));			
+			//bookService.registerNewBook(new Book("1234567890","Java Programming", "Gary Cornell", 98.42));	
+			
+			  try { 
+				  Book oldBook = bookService.getBookByIsbn("1234567890");
+			      bookService.deleteFromStock(oldBook);
+			  }catch(BookNotFoundException e) {
+				  System.out.println("Book not found");
+			  }
+			 
 			
 			List<Book> allBooks = bookService.getAllBooksByAuthor("Gary Cornell");
 			for(Book book: allBooks) {

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd        
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- bean definitions here -->
+	
+    <!-- JDBC Transaction Manager for the Project-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" autowire="byType"></bean>
+    
+    <!-- DataSource-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver"></property>
+		<property name="url" value="jdbc:hsqldb:file:database.dat;shutdown=true"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value=""></property>
+	</bean>		
+	
+	<!-- MyBatis Configuration-->	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" autowire="byType"></bean>
+	
+	<!--Book Mapper-->
+	<bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.example.bookstore.dao.BookSqlMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>	
+	</bean>
+	
+	<!-- Tells Spring to search for AOP annoatations-->
+	<aop:aspectj-autoproxy/>
+	
+	<!-- Transaction Configuration-->	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- Find the entire bean automatically-->
+	<context:component-scan base-package="com.example.bookstore"></context:component-scan>
+	
+
+</beans>
