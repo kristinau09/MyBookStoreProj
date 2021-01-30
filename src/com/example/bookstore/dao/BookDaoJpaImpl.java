@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.bookstore.domain.Book;
 
-@Repository
+//@Repository
 public class BookDaoJpaImpl implements BookDao {
 	
 	@PersistenceContext

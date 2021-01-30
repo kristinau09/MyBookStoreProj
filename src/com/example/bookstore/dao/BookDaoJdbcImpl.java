@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.bookstore.domain.Book;
 
 @Transactional
-//@Repository("bookDao")
+@Repository("bookDao")
 public class BookDaoJdbcImpl implements BookDao {
 
 	@Autowired
