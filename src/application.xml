@@ -16,8 +16,14 @@
 
 	<!-- bean definitions here -->
 	
-    <!-- Transaction Manager for the Project-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" autowire="byType"></bean>    
+    <!-- JDBC Transaction Manager for the Project-->
+    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" autowire="byType"></bean>-->  
+    
+    <!-- Hibernate Transaction Manager for the Project-->
+    <!--<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager" autowire="byType"></bean>-->
+    
+    <!-- JPA Transaction Manager for the Project-->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" autowire="byType"></bean>   
 
 	<!-- DataSource-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -29,6 +35,38 @@
 	
 	<!--JDBC Template-->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" autowire="constructor"></bean>	
+	
+	<!--Hibernate Template-->	
+	<!--
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate" autowire="byType"></bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.example.bookstore.domain</value>			
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop> 
+			
+			</props>
+	    </property>	
+	</bean>
+	-->
+	
+	<!--EntityManagerFactory Config-->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true"></property>
+				<property name="generateDdl" value="true"></property>	
+			</bean>
+        </property>
+        <property name="dataSource" ref="dataSource"></property>
+	</bean>
 	
 	<!-- Tells Spring to search for AOP annoatations-->
 	<aop:aspectj-autoproxy/>
