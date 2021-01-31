@@ -9,6 +9,10 @@ import org.apache.ibatis.annotations.Update;
 
 import com.example.bookstore.domain.Book;
 
+/*
+ * contains the SQL statements for myBatis
+ */
+
 public interface BookSqlMapper {
 	
 	/*

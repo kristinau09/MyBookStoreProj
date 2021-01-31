@@ -15,7 +15,7 @@ public class Client {
 	
 	public static void main(String[] args) throws Exception{
 
-		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application-myBatis.xml");
+		ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application-jpa.xml");
 		
 		try {			
 			
@@ -29,8 +29,7 @@ public class Client {
 			      bookService.deleteFromStock(oldBook);
 			  }catch(BookNotFoundException e) {
 				  System.out.println("Book not found");
-			  }
-			 
+			  }			 
 			
 			List<Book> allBooks = bookService.getAllBooksByAuthor("Gary Cornell");
 			for(Book book: allBooks) {
