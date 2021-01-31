@@ -43,19 +43,10 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<!-- Find the entire bean automatically-->
-	<context:component-scan base-package="com.example.bookstore"></context:component-scan>
+	<context:component-scan base-package="com.example.bookstore, spelTesting"></context:component-scan>
 	
-	<!--Testing SpEL-->
-	<bean id="simpleBeanA" class="spelTesting.SimpleBeanA">
-		<property name="simpleValue" value="HELLO FROM SPRING EXPRESSION LANGUAGE"></property>
-	</bean>
 	
-	<bean id="simpleBeanB" class="spelTesting.SimpleBeanB">
-		<!--<property name="secondValue" value="#{simpleBeanA.getSimpleValue()}"></property>-->
-		<!--Java recognizes this as a property and it will implicitly convert it into getSimpleValue()-->
-		<property name="secondValue" value="#{simpleBeanA.simpleValue}"></property>
-		<property name="randomValue" value="#{(T(java.lang.Math).random() * 10) + 1}"></property>
-	</bean>
+	
 	
 
 </beans>
