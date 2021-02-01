@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.bookstore.domain.Book;
 
-//@Repository
+@Repository
 public class BookDaoJpaImpl implements BookDao {
 	
 	@PersistenceContext
@@ -24,8 +24,13 @@ public class BookDaoJpaImpl implements BookDao {
 
 	@Override
 	public Book findByIsbn(String isbn) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return (Book)em.createQuery("select book from Book as book where book.isbn=:isbn").setParameter("isbn", isbn).getSingleResult();
+		try {
+		return (Book)em.createQuery("select book from Book as book where book.isbn=:isbn")
+				.setParameter("isbn", isbn)
+				.getSingleResult();
+		}catch(javax.persistence.NoResultException e) {
+			throw new BookNotFoundException();
+		}
 	}
 
 	@Override

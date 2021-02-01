@@ -20,6 +20,7 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" autowire="byType"></bean>   
 
 	<!-- DataSource-->
+	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver"></property>
 		<property name="url" value="jdbc:hsqldb:file:database.dat;shutdown=true"></property>
